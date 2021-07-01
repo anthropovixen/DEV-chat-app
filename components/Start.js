@@ -14,7 +14,7 @@ const image = require('../assets/background-image.png');
 export default class Start extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { name: '', backgroundColor: '090C08' };
+		this.state = { name: '' };
 	}
 	render() {
 		let { backgroundColor } = this.state;
