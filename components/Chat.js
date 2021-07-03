@@ -14,14 +14,14 @@ import { Bubble, GiftedChat } from 'react-native-gifted-chat';
 const firebase = require('firebase');
 require('firebase/firestore');
 
-const firebaseConfig = {
-	apiKey: 'AIzaSyDVj-DVpMx3lSnakSKgAPXReXj0clGnCeA',
-	authDomain: 'dev-chat-app-5fa41.firebaseapp.com',
-	projectId: 'dev-chat-app-5fa41',
-	storageBucket: 'dev-chat-app-5fa41.appspot.com',
-	messagingSenderId: '300350685305',
-	appId: '1:300350685305:web:dd44d534a575a070ab94a8',
-	measurementId: 'G-6BCBLHFW4N',
+var firebaseConfig = {
+	apiKey: 'AIzaSyB7yKJ_VE_0ZmM11sHv-hylYeHPnxqRWhs',
+	authDomain: 'dev-chat-app-81265.firebaseapp.com',
+	projectId: 'dev-chat-app-81265',
+	storageBucket: 'dev-chat-app-81265.appspot.com',
+	messagingSenderId: '518176343018',
+	appId: '1:518176343018:web:72485be07c90218ca3e893',
+	measurementId: 'G-2HJNQJ1FJN',
 };
 
 // Create a constructor that will iniatialize Firestore app
