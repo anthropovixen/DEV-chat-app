@@ -6,6 +6,7 @@ import {
 	Platform,
 	KeyboardAvoidingView,
 	Text,
+	AsyncStorage,
 } from 'react-native';
 import { Bubble, GiftedChat } from 'react-native-gifted-chat';
 
@@ -13,6 +14,7 @@ import { Bubble, GiftedChat } from 'react-native-gifted-chat';
 
 const firebase = require('firebase');
 require('firebase/firestore');
+require('firebase/auth');
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyB7yKJ_VE_0ZmM11sHv-hylYeHPnxqRWhs',
@@ -32,40 +34,57 @@ export default class Chat extends React.Component {
 		this.state = {
 			messages: [],
 			name: '',
+			uid: '',
 		};
 
 		// Connect to firebase
 
 		if (!firebase.apps.length) {
 			firebase.initializeApp(firebaseConfig);
-			firebase.analytics();
 		}
-
-		// Create a reference to Firestore collection
-
-		this.referenceChatMessages = firebase.firestore().collection('messages');
 	}
 
 	// Get and display messages
 
 	componentDidMount() {
+		this.getMessages();
+
+		// Create a reference to Firestore collection
+
+		this.referenceChatMessages = firebase.firestore().collection('messages');
+
 		// Authenticate user
 
-		this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
+		this.authUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
 			if (!user) {
-				firebase.auth().signInAnonymously();
+				await firebase.auth().signInAnonymously();
 			}
 
-			// Create a reference to Firestore collection
+			// Update user state with current user data
 
-			this.referenceChatMessages = firebase.firestore().collection('messages');
+			this.setState({
+				uid: user.uid,
+				messages: [],
+			});
 
 			// Stop receiving updates on collection snapshots for current user
 
-			this.unsubscribeMessages = this.referenceChatMessages
+			this.unsubscribe = this.referenceChatMessages
 				.orderBy('createdAt', 'desc')
 				.onSnapshot(this.onCollectionUpdate);
 		});
+	}
+
+	async getMessages() {
+		let messages = '';
+		try {
+			messages = (await AsyncStorage.getItem('messages')) || [];
+			this.setState({
+				messages: JSON.parse(messages),
+			});
+		} catch (error) {
+			console.log(error.message);
+		}
 	}
 
 	// Retrieve data from collection and store it in state when something changes in the messages
@@ -86,6 +105,9 @@ export default class Chat extends React.Component {
 				user: data.user,
 			});
 		});
+		this.setState({
+			messages,
+		});
 
 		// Access user's name and put it on top of app
 
@@ -97,39 +119,53 @@ export default class Chat extends React.Component {
 
 	addMessage = () => {
 		const messages = this.state.messages[0];
-		firebase
+		this.referenceChatMessages.add({
+			_id: messages._id,
+			text: messages.text,
+			createdAt: messages.createdAt,
+			user: messages.user,
+		});
+	};
+
+	async saveMessages() {
+		try {
+			await AsyncStorage.setItem(
+				'messages',
+				JSON.stringify(this.state.messages)
+			);
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+
+	// Create a reference to Firestore collection
+	onAuthStateChanged() {
+		this.referenceChatMessages = firebase
 			.firestore()
 			.collection('messages')
-			.add({
-				_id: messages._id,
-				text: messages.text,
-				createdAt: messages.createdAt,
-				user: {
-					_id: messages.user._id,
-					name: messages.user.name,
-				},
-			})
-			.then()
-			.catch((error) => console.log('error', error));
-	};
+			.where('uid', '==', this.state.uid);
+	}
 
 	// Append messages sent on Send to state
 
 	onSend(messages = []) {
-		this.setState((previousState) => ({
-			messages: GiftedChat.append(previousState.messages, messages),
-		}));
-		() => {
-			this.addMessage();
-		};
+		this.setState(
+			(previousState) => ({
+				messages: GiftedChat.append(previousState.messages, messages),
+			}),
+			() => {
+				this.addMessage();
+				this.saveMessages();
+			}
+		);
 	}
 
 	// When component unmounts stop receiving updates on collection
 
 	componentWillUnmount() {
-		if (typeof this.unsubscribe === 'function') {
-			this.authUnsubscribe();
-		}
+		// if (typeof this.unsubscribe === 'function') {
+		this.authUnsubscribe();
+		// }
 	}
 
 	// Style chat bubbles with alignment and color
@@ -184,7 +220,7 @@ export default class Chat extends React.Component {
 
 					onSend={(messages) => this.onSend(messages)}
 					// User identifier
-					user={{ _id: 1 }}
+					user={{ _id: this.state.uid }}
 				/>
 
 				{/* Keyboard componet to avoid keyboard being hidden on older phone models */}
