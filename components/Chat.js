@@ -14,9 +14,7 @@ import { Bubble, GiftedChat } from 'react-native-gifted-chat';
 const firebase = require('firebase');
 require('firebase/firestore');
 
-// Create a constructor that will iniatialize Firestore app
-
-var firebaseConfig = {
+const firebaseConfig = {
 	apiKey: 'AIzaSyDVj-DVpMx3lSnakSKgAPXReXj0clGnCeA',
 	authDomain: 'dev-chat-app-5fa41.firebaseapp.com',
 	projectId: 'dev-chat-app-5fa41',
@@ -26,9 +24,11 @@ var firebaseConfig = {
 	measurementId: 'G-6BCBLHFW4N',
 };
 
+// Create a constructor that will iniatialize Firestore app
+
 export default class Chat extends React.Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		this.state = {
 			messages: [],
 			name: '',
@@ -38,6 +38,7 @@ export default class Chat extends React.Component {
 
 		if (!firebase.apps.length) {
 			firebase.initializeApp(firebaseConfig);
+			firebase.analytics();
 		}
 
 		// Create a reference to Firestore collection
@@ -54,11 +55,6 @@ export default class Chat extends React.Component {
 			if (!user) {
 				firebase.auth().signInAnonymously();
 			}
-			// update user state with currently active user data
-
-			// this.setState({
-			// 	messages: [],
-			// });
 
 			// Create a reference to Firestore collection
 
@@ -70,11 +66,6 @@ export default class Chat extends React.Component {
 				.orderBy('createdAt', 'desc')
 				.onSnapshot(this.onCollectionUpdate);
 		});
-
-		// Access user's name and put it on top
-
-		const { name } = this.props.route.params;
-		this.props.navigation.setOptions({ title: `${name}'s Chat` });
 	}
 
 	// Retrieve data from collection and store it in state when something changes in the messages
@@ -95,6 +86,11 @@ export default class Chat extends React.Component {
 				user: data.user,
 			});
 		});
+
+		// Access user's name and put it on top of app
+
+		const name = this.props.route.params.name;
+		this.props.navigation.setOptions({ title: `${name}'s Chat` });
 	};
 
 	// Add message to firestore cloud storage
