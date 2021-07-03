@@ -16,7 +16,7 @@ require('firebase/firestore');
 
 // Create a constructor that will iniatialize Firestore app
 
-const firebaseConfig = {
+var firebaseConfig = {
 	apiKey: 'AIzaSyDVj-DVpMx3lSnakSKgAPXReXj0clGnCeA',
 	authDomain: 'dev-chat-app-5fa41.firebaseapp.com',
 	projectId: 'dev-chat-app-5fa41',
@@ -32,7 +32,6 @@ export default class Chat extends React.Component {
 		this.state = {
 			messages: [],
 			name: '',
-			uid: '',
 		};
 
 		// Connect to firebase
@@ -43,7 +42,7 @@ export default class Chat extends React.Component {
 
 		// Create a reference to Firestore collection
 
-		this.referenceChatMessages = firebase.firestore().collection('chats');
+		this.referenceChatMessages = firebase.firestore().collection('messages');
 	}
 
 	// Get and display messages
@@ -57,14 +56,13 @@ export default class Chat extends React.Component {
 			}
 			// update user state with currently active user data
 
-			this.setState({
-				uid: user.uid,
-				messages: [],
-			});
+			// this.setState({
+			// 	messages: [],
+			// });
 
 			// Create a reference to Firestore collection
 
-			this.referenceChatMessages = firebase.firestore().collection('chats');
+			this.referenceChatMessages = firebase.firestore().collection('messages');
 
 			// Stop receiving updates on collection snapshots for current user
 
@@ -105,15 +103,12 @@ export default class Chat extends React.Component {
 		const messages = this.state.messages[0];
 		firebase
 			.firestore()
-			.collection('chats')
+			.collection('messages')
 			.add({
 				_id: messages._id,
 				text: messages.text,
 				createdAt: messages.createdAt,
-				user: {
-					_id: messages.user._id,
-					name: messages.user.name,
-				},
+				user: messages.user,
 			})
 			.then()
 			.catch((error) => console.log('error', error));
