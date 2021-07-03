@@ -14,7 +14,7 @@ import { Bubble, GiftedChat } from 'react-native-gifted-chat';
 const firebase = require('firebase');
 require('firebase/firestore');
 
-var firebaseConfig = {
+const firebaseConfig = {
 	apiKey: 'AIzaSyB7yKJ_VE_0ZmM11sHv-hylYeHPnxqRWhs',
 	authDomain: 'dev-chat-app-81265.firebaseapp.com',
 	projectId: 'dev-chat-app-81265',
