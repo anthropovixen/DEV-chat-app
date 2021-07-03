@@ -108,19 +108,14 @@ export default class Chat extends React.Component {
 				_id: messages._id,
 				text: messages.text,
 				createdAt: messages.createdAt,
-				user: messages.user,
+				user: {
+					_id: messages.user._id,
+					name: messages.user.name,
+				},
 			})
 			.then()
 			.catch((error) => console.log('error', error));
 	};
-
-	// When component unmounts stop receiving updates on collection
-
-	componentWillUnmount() {
-		if (typeof this.unsubscribe === 'function') {
-			this.authUnsubscribe();
-		}
-	}
 
 	// Append messages sent on Send to state
 
@@ -128,6 +123,17 @@ export default class Chat extends React.Component {
 		this.setState((previousState) => ({
 			messages: GiftedChat.append(previousState.messages, messages),
 		}));
+		() => {
+			this.addMessage();
+		};
+	}
+
+	// When component unmounts stop receiving updates on collection
+
+	componentWillUnmount() {
+		if (typeof this.unsubscribe === 'function') {
+			this.authUnsubscribe();
+		}
 	}
 
 	// Style chat bubbles with alignment and color
