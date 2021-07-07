@@ -66,12 +66,9 @@ export default class Chat extends React.Component {
 
 		// Fetch data from asyncStorage or Firestore
 
-		NetInfo.fetch().then((connection) => {
-			if (connection.isConnected) {
-				console.log('online');
-			} else {
-				console.log('offline');
-			}
+		NetInfo.fetch().then((state) => {
+			console.log('Connection type', state.type);
+			console.log('Is connected?', state.isConnected);
 		});
 
 		// Create a reference to Firestore collection
@@ -217,7 +214,7 @@ export default class Chat extends React.Component {
 	// Style input bar to only render when the user is online
 
 	renderInputToolbar(props) {
-		if (this.isConnected === false) {
+		if (isConnected === false) {
 		} else {
 			return <InputToolbar {...props} />;
 		}
@@ -258,7 +255,7 @@ export default class Chat extends React.Component {
 					messages={this.state.messages}
 					// Style input bar to only render when the user is online
 
-					renderInputToolbar={this.renderInputToolbar.bind(this)}
+					renderInputToolbar={this.renderInputToolbar}
 					// Messages will be fed on send
 
 					onSend={(messages) => this.onSend(messages)}
