@@ -17,6 +17,8 @@ const firebase = require('firebase');
 require('firebase/firestore');
 require('firebase/auth');
 
+// To get access to database
+
 const firebaseConfig = {
 	apiKey: 'AIzaSyB7yKJ_VE_0ZmM11sHv-hylYeHPnxqRWhs',
 	authDomain: 'dev-chat-app-81265.firebaseapp.com',
@@ -36,40 +38,28 @@ export default class Chat extends React.Component {
 			messages: [],
 			name: '',
 			uid: '',
+			isConnected: true,
 		};
 
 		// Connect to firebase
 
 		if (!firebase.apps.length) {
 			firebase.initializeApp(firebaseConfig);
+			firebase
+				.firestore()
+				.settings({ experimentalAutoDetectLongPolling: true });
 		}
+		// Create a reference to Firestore collection
+
+		this.referenceChatMessages = firebase.firestore().collection('messages');
 	}
 
 	// get messages from asyncStorage
-
-	async getMessages() {
-		let messages = '';
-		try {
-			messages = (await AsyncStorage.getItem('messages')) || [];
-			this.setState({
-				messages: JSON.parse(messages),
-			});
-		} catch (error) {
-			console.log(error.message);
-		}
-	}
 
 	// Get and display messages
 
 	componentDidMount() {
 		this.getMessages();
-
-		// Fetch data from asyncStorage or Firestore
-
-		NetInfo.fetch().then((state) => {
-			console.log('Connection type', state.type);
-			console.log('Is connected?', state.isConnected);
-		});
 
 		// Create a reference to Firestore collection
 
@@ -95,6 +85,43 @@ export default class Chat extends React.Component {
 				.orderBy('createdAt', 'desc')
 				.onSnapshot(this.onCollectionUpdate);
 		});
+
+		// Fetch data from asyncStorage or Firestore
+
+		NetInfo.fetch().then((connection) => {
+			if (connection.isConnected) {
+				console.log('online');
+			} else {
+				console.log('offline');
+			}
+		});
+	}
+
+	async getMessages() {
+		let messages = '';
+		try {
+			messages = (await AsyncStorage.getItem('messages')) || [];
+			this.setState({
+				messages: JSON.parse(messages),
+			});
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+
+	// When component unmounts stop receiving updates on collection
+
+	componentWillUnmount() {
+		this.authUnsubscribe();
+	}
+
+	// Create a reference to Firestore collection
+
+	onAuthStateChanged() {
+		this.referenceChatMessages = firebase
+			.firestore()
+			.collection('messages')
+			.where('uid', '==', this.state.uid);
 	}
 
 	// Retrieve data from collection and store it in state when something changes in the messages
@@ -137,7 +164,7 @@ export default class Chat extends React.Component {
 		});
 	};
 
-	// Append messages sent on send to State with Save messages function
+	// Append messages sent on send to chat with Save messages function
 
 	onSend(messages = []) {
 		this.setState(
@@ -151,7 +178,7 @@ export default class Chat extends React.Component {
 		);
 	}
 
-	// Function Save messages as strings to Firestore database
+	// Save messages as strings to Firestore database
 
 	async saveMessages() {
 		try {
@@ -177,25 +204,6 @@ export default class Chat extends React.Component {
 		}
 	}
 
-	// Create a reference to Firestore collection
-
-	onAuthStateChanged() {
-		this.referenceChatMessages = firebase
-			.firestore()
-			.collection('messages')
-			.where('uid', '==', this.state.uid);
-	}
-
-	// When component unmounts stop receiving updates on collection
-
-	componentWillUnmount() {
-		// if (typeof this.unsubscribe === 'function') {
-
-		this.authUnsubscribe();
-
-		// }
-	}
-
 	// Style chat bubbles with alignment and color
 
 	renderBubble(props) {
@@ -214,7 +222,7 @@ export default class Chat extends React.Component {
 	// Style input bar to only render when the user is online
 
 	renderInputToolbar(props) {
-		if (this.isConnected === false) {
+		if (this.state.isConnected === false) {
 		} else {
 			return <InputToolbar {...props} />;
 		}
@@ -233,13 +241,6 @@ export default class Chat extends React.Component {
 
 		return (
 			<View style={styles.chatContainer}>
-				{/* Create button to return to Start screen */}
-
-				<Button
-					title="Start"
-					onPress={() => this.props.navigation.navigate('Start')}
-				/>
-
 				{/* Display message of log in to user */}
 
 				<Text>{this.state.loggedInText}</Text>
@@ -255,7 +256,7 @@ export default class Chat extends React.Component {
 					messages={this.state.messages}
 					// Style input bar to only render when the user is online
 
-					renderInputToolbar={this.renderInputToolbar}
+					renderInputToolbar={this.renderInputToolbar.bind(this)}
 					// Messages will be fed on send
 
 					onSend={(messages) => this.onSend(messages)}
@@ -265,9 +266,9 @@ export default class Chat extends React.Component {
 
 				{/* Keyboard componet to avoid keyboard being hidden on older phone models */}
 
-				{Platform.OS === 'android' ? (
+				{/* {Platform.OS === 'android' ? (
 					<KeyboardAvoidingView behavior="height" />
-				) : null}
+				) : null} */}
 			</View>
 		);
 	}
