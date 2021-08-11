@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c293eb91-0382-4d9c-93bf-4e6a68e250db" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Chat.js" afterDir="false" />
-    </list>
+    <list default="true" id="c293eb91-0382-4d9c-93bf-4e6a68e250db" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,9 +34,9 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="120" y="145" width="1200" height="635" key="AVDManager" timestamp="1625794382099">
+    <state x="120" y="145" width="1200" height="635" key="AVDManager" timestamp="1626047850430">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
-    <state x="120" y="145" width="1200" height="635" key="AVDManager/0.25.1440.875/1440.25.1920.1055@0.25.1440.875" timestamp="1625794382099" />
+    <state x="120" y="145" width="1200" height="635" key="AVDManager/0.25.1440.875/1440.25.1920.1055@0.25.1440.875" timestamp="1626047850430" />
   </component>
 </project>
