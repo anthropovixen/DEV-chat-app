@@ -22,16 +22,10 @@ Install [Expo](https://expo.io/) and create an account.
 $ npm install expo-cli --global
 ```
 
-Set up your React Native App in your projects folder
-
-```bash
-$ expo init hello-world
-```
-
 Go to your project's directory
 
 ```bash
-$ cd hello-world
+$ cd DEV-Chat-app
 ```
 
 Launch the server Metro Bundler in a new tab
