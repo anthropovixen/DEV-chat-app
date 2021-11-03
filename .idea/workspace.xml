@@ -26,10 +26,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c293eb91-0382-4d9c-93bf-4e6a68e250db" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/DEV-chat-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DEV-chat-app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,27 +67,38 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="120" y="145" width="1200" height="635" key="AVDManager" timestamp="1629072925463">
-      <screen x="0" y="25" width="1440" height="875" />
+    <state x="184" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1635898010412">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
+    <state x="184" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1635898010412" />
+    <state x="120" y="123" width="1200" height="654" key="AVDManager" timestamp="1635900418013">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="120" y="123" width="1200" height="654" key="AVDManager/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1635900418013" />
+    <state x="120" y="123" width="1200" height="654" key="AVDManager/0.0.1440.900/1440.25.1920.1055@0.0.1440.900" timestamp="1635900038531" />
     <state x="120" y="145" width="1200" height="635" key="AVDManager/0.25.1440.875/1440.25.1920.1055@0.25.1440.875" timestamp="1629072925463" />
-    <state width="795" height="203" key="GridCell.Tab.0.bottom" timestamp="1629073092404">
+    <state width="1398" height="209" key="GridCell.Tab.0.bottom" timestamp="1635897986954">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="795" height="203" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1629073092404" />
-    <state width="795" height="203" key="GridCell.Tab.0.center" timestamp="1629073092402">
+    <state width="1398" height="209" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1635897986954" />
+    <state width="1398" height="209" key="GridCell.Tab.0.center" timestamp="1635897986952">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="795" height="203" key="GridCell.Tab.0.center/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1629073092402" />
-    <state width="795" height="203" key="GridCell.Tab.0.left" timestamp="1629073092400">
+    <state width="1398" height="209" key="GridCell.Tab.0.center/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1635897986952" />
+    <state width="1398" height="209" key="GridCell.Tab.0.left" timestamp="1635897986949">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="795" height="203" key="GridCell.Tab.0.left/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1629073092400" />
-    <state width="795" height="203" key="GridCell.Tab.0.right" timestamp="1629073092403">
+    <state width="1398" height="209" key="GridCell.Tab.0.left/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1635897986949" />
+    <state width="1398" height="209" key="GridCell.Tab.0.right" timestamp="1635897986953">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="795" height="203" key="GridCell.Tab.0.right/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1629073092403" />
+    <state width="1398" height="209" key="GridCell.Tab.0.right/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1635897986953" />
+    <state x="385" y="196" key="search.everywhere.popup" timestamp="1635900446775">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" key="search.everywhere.popup/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1635900446775" />
   </component>
 </project>
