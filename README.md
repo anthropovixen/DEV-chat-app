@@ -2,9 +2,9 @@
 
 DEVChat App is an application for mobile devices,built with React Native and developed using Expo.
 
-Conversations are stored locally with Google Firestore Database and Google Firebase authentication. The interface was creates with Gifted Chat library.
+Conversations are stored locally with Google Firestore Database and Google Firebase authentication. The interface was created with Gifted Chat library.
 
-Users can share images by taking pictures or from media library after granting permission to the app to access their media library and camera. Location sharing is also possible after the userallos the app to access user's location information.
+Users can share images from media library or by taking pictures after granting permission so that the app can access their media library and camera. Location sharing is also possible after the user allows the app to access location information.
 
 See a video demonstration of the application on an Android emulator [here](https://www.youtube.com/watch?v=k6-SGBRoPmI)
 
