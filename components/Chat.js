@@ -26,7 +26,7 @@ const firebaseConfig = {
 	measurementId: 'G-2HJNQJ1FJN',
 };
 
-// Create a constructor that will iniatialize Firestore app
+// Create a constructor that will initialize Firestore app
 
 export default class Chat extends React.Component {
 	constructor() {
